@@ -63,21 +63,18 @@
 
     <!-- Khu vực AR -->
 
-    <a-scene
+    
+<a-assets>
+  <video
+    id="video"
+    src="./gioi-thieu.mp4"
+    preload="auto"
+    loop
+    muted
+    playsinline>
+  </video>
+</a-assets>
 
-        mindar-image="
-            imageTargetSrc: ./ditich.mind;
-        "
-
-        color-space="sRGB"
-
-        renderer="colorManagement: true, physicallyCorrectLights: true"
-
-        vr-mode-ui="enabled: false"
-
-        device-orientation-permission-ui="
-            enabled: false
-        ">
 
 
         <!-- Camera -->
