@@ -6,67 +6,70 @@
   <meta charset="UTF-8">
 
   <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+        content="width=device-width, initial-scale=1">
 
   <title>AR Lịch sử địa phương</title>
 
-  <!-- A-Frame -->
-  <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+  <!-- MindAR core -->
+  <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image.prod.js"></script>
 
-  <!-- MindAR -->
-  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  <!-- A-Frame -->
+  <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+
+  <!-- MindAR cho A-Frame -->
+  <script src="https://cdn.jsdelivr.net/gh/hiukim/mind-ar-js@1.1.4/dist/mindar-image-aframe.prod.js"></script>
 
 </head>
 
 
 <body>
 
-  <!-- TẤT CẢ THÀNH PHẦN AR PHẢI NẰM TRONG A-SCENE -->
+<a-scene
 
-  <a-scene
+  mindar-image="
+    imageTargetSrc: ./ditich.mind;
+  "
 
-    mindar-image="
-      imageTargetSrc: ./targets.mind;
-    "
+  color-space="sRGB"
 
-    color-space="sRGB"
+  renderer="
+    colorManagement: true,
+    physicallyCorrectLights
+  "
 
-    renderer="
-      colorManagement: true,
-      physicallyCorrectLights
-    "
+  vr-mode-ui="enabled: false"
 
-    vr-mode-ui="enabled: false"
-
-    device-orientation-permission-ui="
-      enabled: false
-    ">
+  device-orientation-permission-ui="
+    enabled: false
+  ">
 
 
-    <!-- KHO TÀI NGUYÊN -->
+  <!-- CAMERA -->
 
-    <a-assets>
+  <a-camera
+    position="0 0 0"
+    look-controls="enabled: false">
+  </a-camera>
 
-    </a-assets>
 
+  <!-- TARGET -->
 
-    <!-- CAMERA -->
+  <a-entity
+    mindar-image-target="targetIndex: 0">
 
-    <a-camera
+    <!-- Một hình vuông để kiểm tra AR -->
+
+    <a-plane
       position="0 0 0"
-      look-controls="enabled: false">
-    </a-camera>
+      width="1"
+      height="1"
+      color="#00FF00">
+    </a-plane>
+
+  </a-entity>
 
 
-    <!-- ẢNH MỤC TIÊU -->
-
-    <a-entity
-      mindar-image-target="targetIndex: 0">
-
-    </a-entity>
-
-
-  </a-scene>
+</a-scene>
 
 </body>
 
