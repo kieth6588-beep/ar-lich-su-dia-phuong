@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WebAR - Đền Khánh Vân</title>
+
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background: #111;
+    }
+
+    #message {
+      position: fixed;
+      top: 12px;
+      left: 10px;
+      right: 10px;
+      z-index: 10;
+      color: white;
+      background: rgba(0,0,0,0.7);
+      padding: 12px;
+      border-radius: 8px;
+    }
+
+    #videoBox {
+      display: none;
+      position: fixed;
+      z-index: 20;
+      left: 5%;
+      right: 5%;
+      bottom: 20px;
+      background: white;
+      padding: 10px;
+      border-radius: 12px;
+    }
+
+    video {
+      width: 100%;
+      max-height: 45vh;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="message">
+    Hướng camera vào ảnh Đền Khánh Vân để khám phá nội dung
+  </div>
+
+  <div id="videoBox">
+    <p><strong>Giới thiệu Đền Khánh Vân</strong></p>
+    <video id="introVideo" controls playsinline preload="metadata">
+      <source src="./videos/gioi-thieu.mp4" type="video/mp4">
+      Trình duyệt không hỗ trợ video.
+    </video>
+  </div>
+
+  <a-scene
+    mindar-image="imageTargetSrc: ./targets.mind; autoStart: true;"
+    color-space="sRGB"
+    renderer="colorManagement: true"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+
+    <a-camera
+      position="0 0 0"
+      look-controls="enabled: false">
+    </a-camera>
+
+    <a-entity mindar-image-target="targetIndex: 0"></a-entity>
+  </a-scene>
+
+  <script>
+    const target = document.querySelector(
+      '[mindar-image-target="targetIndex: 0"]'
+    );
+
+    const videoBox = document.getElementById("videoBox");
+    const video = document.getElementById("introVideo");
+    const message = document.getElementById("message");
+
+    target.addEventListener("targetFound", () => {
+      videoBox.style.display = "block";
+      message.textContent = "Đã nhận diện ảnh! Nhấn nút phát video bên dưới.";
+    });
+
+    target.addEventListener("targetLost", () => {
+      videoBox.style.display = "none";
+      video.pause();
+      message.textContent = "Hướng camera vào ảnh Đền Khánh Vân để khám phá nội dung";
+    });
+  </script>
+</body>
+</html>
